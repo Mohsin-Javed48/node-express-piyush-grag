@@ -4,8 +4,23 @@ const app = express();
 const port = process.env.PORT || 8000;
 const users = require('./MOCK_DATA.json');
 
-app.use(express.urlencoded({ extended: true }));
+// Middlewares
+app.use((req, res, next) => {
+  fs.appendFile(
+    'log.txt',
+    `\n${Date.now()}: ${req.ip} ${req.method} :  ${req.path}\n`,
+    (err) => {
+      if (err) {
+        console.log(err);
+      }
+      next();
+    }
+  );
+});
+
+app.use(express.urlencoded({ extended: true })); //built in middleware
 app.get('/users', (req, res) => {
+  res.setHeader('X-MyName', 'Mohsin Javed');
   return res.json(users);
 });
 
@@ -35,12 +50,17 @@ app
 
 app.post('/api/users', (req, res) => {
   const body = req.body;
+  if (!body.email) {
+    res.status(404).json({ message: 'User not Found' });
+  }
   users.push({ ...body, id: users.length + 1 });
   fs.writeFile('./MOCK_DATA.json', JSON.stringify(users), (err) => {
-    console.log(err);
+    if (err) {
+      console.log('ERROR', err);
+    }
   });
-  console.log(req.body);
-  res.json({ status: 'pending', id:  });
+  // console.log(req.body);
+  res.json({ status: 'pending', users });
 });
 
 // NO NEED AFTER app.route("/api/users/:id")
@@ -55,6 +75,3 @@ app.post('/api/users', (req, res) => {
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);
 });
-
-
-<h1 className=" flex justify-content"></h1>
