@@ -14,3 +14,5 @@ function logReqRes(filename) {
     );
   };
 }
+
+module.exports = logReqRes;
