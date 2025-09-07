@@ -8,12 +8,21 @@
   },
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "express": "^5.1.0",
+    "mongoose": "^8.18.0",
     "nodemon": "^3.1.10"
   },
   "devDependencies": {
     "prettier": "3.6.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mohsin-Javed48/node-express-piyush-grag.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Mohsin-Javed48/node-express-piyush-grag/issues"
+  },
+  "homepage": "https://github.com/Mohsin-Javed48/node-express-piyush-grag#readme",
+  "description": ""
 }
